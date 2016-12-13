@@ -64,10 +64,41 @@
                      2 (state 'H (hash 'L 2 'M 1 'H 0))))
   (automaton head body))
 
+(define (tough)
+  (define head (hash 'INITIAL 0 'CURRENT 0 'PAYOFF 0))
+  (define body (hash 0 (state 'H (hash 'L 0 'M 0 'H 1))
+                     1 (state 'H (hash 'L 1 'M 1 'H 2))
+                     2 (state 'H (hash 'L 2 'M 2 'H 3))
+                     3 (state 'M (hash 'L 0 'M 3 'H 0))))
+ (automaton head body))
+
+(define (bully)
+  (define head (hash 'INITIAL 0 'CURRENT 0 'PAYOFF 0))
+  (define body (hash 0 (state 'H (hash 'L 0 'M 3 'H 1))
+                     1 (state 'H (hash 'L 1 'M 1 'H 2))
+                     2 (state 'H (hash 'L 2 'M 2 'H 3))
+                     3 (state 'M (hash 'L 1 'M 3 'H 0))))
+(automaton head body))
+
+#|
+(define (tough)
+  (automaton 0 0 0 (vector (state HIGH (vector 0 0 1))
+                           (state HIGH (vector 1 1 2))
+                           (state HIGH (vector 2 2 3))
+                           (state MEDIUM (vector 0 3 0)))))
+(define (bully)
+  (automaton 0 0 0 (vector (state HIGH (vector 0 3 1))
+                           (state HIGH (vector 1 1 2))
+                           (state HIGH (vector 2 2 3))
+                           (state MEDIUM (vector 1 3 0)))))
+|#
+
 (define l (lows))
 (define m (mediums))
 (define h (highs))
 (define a (accommodator))
+(define t (tough))
+(define b (bully))
 
 
 ;;IMMUTABLE MUTATION
@@ -229,7 +260,7 @@
 (define (interact* au1 au2 rounds delta)
   (with-handlers ([exn:fail?
                    (lambda (e) (values (list 'I-AM-HERE!!!) au1 au2))])
-    (interact au1 au2 rounds delta)))
+    (interact-d au1 au2 rounds delta)))
 
 (define (interact-s s1 s2 rounds delta)
   (define-values (result a1 a2) (interact-d s1 s2 rounds delta))

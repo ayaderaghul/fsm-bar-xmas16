@@ -63,13 +63,31 @@
       (hash-ref a-hash a-key)
       0))
 
-#|
-(define (scan-defects-tft population)
+; for one shot rd
+(define (scan-lows-mediums population)
   (let ([ranking (scan (vector-map reset population))]
-        [d (defects)]
-        [t (tit-for-tat)])
+        [l (lows)]
+        [m (mediums)])
     (list
-     (hash-ref* ranking d)
+     (hash-ref* ranking l)
+     (hash-ref* ranking m))))
+
+; for repeated rd: l m h a
+(define (scan-mediums-highs population)
+  (let ([ranking (scan (vector-map reset population))]
+        [m (mediums)]
+        [h (highs)])
+    (list
+     (hash-ref* ranking m)
+     (hash-ref* ranking h))))
+
+; for repeated rd: f t b a
+(define (scan-mediums-tough population)
+  (let ([ranking (scan (vector-map reset population))]
+        [m (mediums)]
+        [t (tough)])
+    (list
+     (hash-ref* ranking m)
      (hash-ref* ranking t))))
 
-|#
+

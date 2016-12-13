@@ -3,15 +3,16 @@
 (provide (all-defined-out))
 (require "automata.rkt"
          "scan.rkt" "inout.rkt"
-         plot)
+         plot
+         )
 
 ;; CONFIGURATION
 (define N 100)
-(define CYCLES 100)
+(define CYCLES 2000)
 (define SPEED 10)
-(define ROUNDS 400)
+(define ROUNDS 100)
 (define DELTA .95)
-(define MUTATION 10)
+(define MUTATION 20)
 
 
 ;; POPULATION
@@ -106,10 +107,8 @@
   (lines coors))
 
 (define (plot-mean data delta rounds pic-file pic-name)
-  ;(define reward (* 3 (compound delta rounds)))
-  ;(define punishment (* 1 (compound delta rounds)))
-  (define medium 5)
-  ;(define punishment 1)
+  (define medium (* 5 (compound delta rounds)))
+  ;(define medium 5)
   (define medium-line (function (lambda (x) medium) #:color "blue"))
   (plot (list medium-line
               (population-mean->lines data))
