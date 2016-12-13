@@ -20,7 +20,7 @@ population of finite state machines playing the repeated nash demand game
 a working code
 
 # how to run (tentative)
-racket -tm pd-population.rkt
+racket -tm population.rkt
 
 how to extract automata: ... (cont)
 
